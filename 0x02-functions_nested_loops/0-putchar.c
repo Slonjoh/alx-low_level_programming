@@ -1,8 +1,9 @@
 #include <stdio.h>
-#include <stdlib.h>
+#include <main.h>
 
-int main()
+int main(void)
+
 {
-    printf("_putchar\n");
-    return 0;
+	printf("_putchar\n");
+	return (0);
 }
