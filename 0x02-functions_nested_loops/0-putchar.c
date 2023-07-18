@@ -1,11 +1,11 @@
 #include "main.h"
 
 /**
- * main - prints Putchar
+ * main - Nested loops
  *
  * Description: prints _putchar
  *
- * Return: 0 (Success)
+ * Return: 0
  */
 
 int main(void)
