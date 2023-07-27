@@ -11,24 +11,25 @@
    */
 int main(void)
 {
-    int a[] = {98, 402, 198, 1024};
-    int *p;
-    int r = 0, c = 0;
-    time_t t;
+	int a[] = {98, 402, 198, 1024};
+	int *p;
+	int r = 0, c = 0;
+	time_t t;
 
-    p = a + 2;
-    printf("a[2] = %d\n", *p); // New line of code to print a[2] = 98
+	p = a + 2;
+	printf("a[2] = %d\n", *p);
 
-    srand((unsigned int)time(&t));
-    while (c < 2772)
-    {
-        r = rand() % (126 - 32 + 1) + 32;
-        if ((c + r) > 2772)
-            break;
-        c = c + r;
-        printf("%c", r);
-    }
-    printf("%c\n", (2772 - c));
-    return (0);
+	srand((unsigned int)time(&t));
+	while (c < 2772)
+	{
+	r = rand() % (126 - 32 + 1) + 32;
+	if ((c + r) > 2772)
+		break;
+	c = c + r;
+	printf("%c", r);
+	}
+	printf("%c\n", (2772 - c));
+	return (0);
 }
+
 
