@@ -1,4 +1,6 @@
 #include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
   /*
    * write your line of code here...
    * Remember:
@@ -9,14 +11,24 @@
    */
 int main(void)
 {
-  int n;
-  int a[5];
-  int *p;
+    int a[] = {98, 402, 198, 1024};
+    int *p;
+    int r = 0, c = 0;
+    time_t t;
 
-  a[2] = 1024;
-  p = &n;
- p[5] = 98;
-  /* ...so that this prints 98\n */
-  printf("a[2] = %d\n", a[2]);
-  return (0);
+    p = a + 2;
+    printf("a[2] = %d\n", *p); // New line of code to print a[2] = 98
+
+    srand((unsigned int)time(&t));
+    while (c < 2772)
+    {
+        r = rand() % (126 - 32 + 1) + 32;
+        if ((c + r) > 2772)
+            break;
+        c = c + r;
+        printf("%c", r);
+    }
+    printf("%c\n", (2772 - c));
+    return (0);
 }
+
