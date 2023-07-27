@@ -19,6 +19,6 @@ int main(void)
     *(p + 7 - (p - &a[2])) = 98; /* The line of code that prints 98*/
 
     /* ...so that this prints 98\n */
-    printf("a[2] = %d\n", a[2]);
-    return (0);
+	printf("a[2] = %d\n", a[2]);
+	return (0);
 }
