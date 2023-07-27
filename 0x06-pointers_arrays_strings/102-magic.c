@@ -1,7 +1,7 @@
 #include <stdio.h>
 
 int main(void)
-{    int n;
+{   int n;
     int a[5];
     int *p;
 
@@ -16,7 +16,7 @@ int main(void)
     * - only one statement
     * - you are not allowed to code anything else than this line of code
     */
-    *(p + 7 - (p - &a[2])) = 98; // The line of code that prints 98
+    *(p + 7 - (p - &a[2])) = 98; /* The line of code that prints 98*/
 
     /* ...so that this prints 98\n */
     printf("a[2] = %d\n", a[2]);
