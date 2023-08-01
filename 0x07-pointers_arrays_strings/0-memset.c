@@ -11,25 +11,56 @@
 char *_memset(char *s, char b, unsigned int n)
 {
 	unsigned int i;
+
 	for (i = 0; i < n; i++)
 	{
 		*(s + i) =  b;
 	}
 	return (s);
 }
-int main()
+
+/**
+ * simple_print_buffer - prints buffer in hexa
+ * @buffer: the address of memory to print
+ * @size: the size of the memory to print
+ *
+ * Return: Nothing.
+ */
+
+void simple_print_buffer(char *buffer, unsigned int size)
 {
+	unsigned int i;
 
-	char buffer[98] = {0x00};
-	char *result = _memset(buffer, 0x01, 95);
-
-	for (int i = 0; i < 98; i++)
+	i = 0;
+	while (i < size)
 	{
-		
-		printf("%p \n",(void*)result);
-		printf("-------------------------------------------------\n");
-		printf("%p ", *&buffer);
+	if (i % 10)
+	{
+	printf(" ");
 	}
+	if (!(i % 10) && i)
+	{
+	printf("\n");
+	}
+	printf("0x%02x", (unsigned char)buffer[i]);
+	i++;
+	}
+	printf("\n");
+}
 
+/**
+ * main - check the code
+ *
+ * Return: Always 0.
+ */
+int main(void)
+
+{
+	char buffer[98] = {0x00};
+
+	simple_print_buffer(buffer, 98);
+	_memset(buffer, 0x01, 95);
+	printf("-------------------------------------------------\n");
+	simple_print_buffer(buffer, 98);
 	return (0);
 }
