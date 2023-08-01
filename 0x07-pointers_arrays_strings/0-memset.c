@@ -19,12 +19,16 @@ char *_memset(char *s, char b, unsigned int n)
 }
 int main()
 {
-	char arr[10];
-	char *result = _memset(arr, 'A', 10);
 
-	for (int i = 0; i < 10; i++)
+	char buffer[98] = {0x00};
+	char *result = _memset(buffer, 0x01, 95);
+
+	for (int i = 0; i < 98; i++)
 	{
-		printf("%p ", (void*)&result[i]);
+		
+		printf("%p \n",(void*)result);
+		printf("-------------------------------------------------\n");
+		printf("%p ", *&buffer);
 	}
 
 	return (0);
