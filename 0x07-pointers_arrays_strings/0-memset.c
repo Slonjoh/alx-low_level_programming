@@ -18,12 +18,16 @@ char *_memset(char *s, char b, unsigned int n)
 
 int main(void)
 {
-	char arr[10];
-	char *result = _memset(arr, 'A', 10);
+	char arr[100];
+	char *result = _memset(arr, '\x00', 100);
 
 	for (int i = 0; i < 10; i++)
 	{
-		printf("%c ", result[i]);
+		printf("0x%02x ", (unsigned char)result[i]);
+		 if ((i + 1) % 10 == 0)
+		 {
+			 printf("\n");
+		 }
 	}
 
 	return (0);
