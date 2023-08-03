@@ -1,10 +1,10 @@
 #include "main.h"
 
 /**
- * _pow_recursion
- * @x:Base
- * @y: Exponent
- * Return: Value of the exponentiation
+ * _pow_recursion - returns the value of x raised to the power of y.
+ * @x: base.
+ * @y: exponent.
+ * Return: value of the exponentiation.
  */
 int _pow_recursion(int x, int y)
 {
