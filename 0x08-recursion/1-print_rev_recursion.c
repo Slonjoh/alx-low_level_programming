@@ -1,12 +1,11 @@
 #include "main.h"
 
-/**_print_rev_recursion(char *s)
- *@s: string
- *Return: Nothing
+/**
+ * _print_rev_recursion
+ * @s: string
+ * Return: Nothing
  */
-
-void _print_rev_recursion(char *s);
-
+void _print_rev_recursion(char *s)
 {
 	if (*s != '\0')
 	{
