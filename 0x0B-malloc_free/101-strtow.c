@@ -30,8 +30,8 @@ int count_words(char *str)
 		{
 			in_word = 0;
 		}
-		return (word_count);
 	}
+	return (word_count);
 }
 
 /**
