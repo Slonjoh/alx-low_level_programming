@@ -4,25 +4,17 @@
 #include <string.h>
 
 /**
- * strtow - Splits a string into words.
+ * count_words - Counts the number of words in a string.
  * @str: The input string.
  *
- * Return: A pointer to an array of strings (words).
- *         The last element of the array is NULL.
- *         Returns NULL if str == NULL or str is an empty string.
+ * Return: The number of words.
  */
 
-char **strtow(char *str)
+int count_words(char *str)
 {
 	int word_count = 0;
 	int in_word = 0;
 	int i;
-	char **words;
-	char *token;
-	int index;
-
-	if (str == NULL || *str == '\0')
-		return (NULL);
 
 	for (i = 0; str[i] != '\0'; i++)
 	{
@@ -37,10 +29,29 @@ char **strtow(char *str)
 		else
 		{
 			in_word = 0;
-		
 		}
-	
+		return (word_count);
 	}
+}
+
+/**
+ * strtow - Splits a string into words.
+ * @str: The input string.
+ *
+ * Return: A pointer to an array of strings (words).
+ *         The last element of the array is NULL.
+ *         Returns NULL if str == NULL or str is an empty string.
+ */
+
+char **strtow(char *str)
+{
+	char *token;
+	char **words;
+	int index;
+	int word_count = count_words(str);
+
+	if (str == NULL || *str == '\0')
+		return (NULL);
 
 	words = (char **)malloc((word_count + 1) * sizeof(char *));
 
@@ -57,7 +68,6 @@ char **strtow(char *str)
 		words[index] = token;
 		token = strtok(NULL, " ");
 		index++;
-	
 	}
 
 	words[index] = NULL;
