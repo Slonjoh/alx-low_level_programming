@@ -65,7 +65,7 @@ char **strtow(char *str)
 
 	while (token != NULL)
 	{
-		words[index] = token;
+		words[index] = strdup(token);
 		token = strtok(NULL, " ");
 		index++;
 	}
