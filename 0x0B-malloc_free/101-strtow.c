@@ -47,7 +47,7 @@ char **strtow(char *str)
 {
 	char *token;
 	char **words;
-	int index;
+	int index = 0;
 	int word_count = count_words(str);
 
 	if (str == NULL || *str == '\0')
