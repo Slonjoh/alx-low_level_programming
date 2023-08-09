@@ -66,6 +66,11 @@ char **strtow(char *str)
 	while (token != NULL)
 	{
 		words[index] = strdup(token);
+		if (words[index] == NULL)
+		{
+			perror("malloc");
+			exit(EXIT_FAILURE);
+		}
 		token = strtok(NULL, " ");
 		index++;
 	}
