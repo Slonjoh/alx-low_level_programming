@@ -121,6 +121,17 @@ int main(int argc, char *argv[])
 			addl = add / 10, nout[k] = (add % 10) + '0';
 		}
 	}
+	i = 0;
+	while (nout[i] == '0' && nout[i + 1] != '\0')
+		i++;
+	while (nout[i] != '\0')
+	{
+		putchar(nout[i]);
+		i++;
+	}
+	putchar('\n');
+	free(nout)
+		return (0);
 	printf("%s\n", nout);
 	return (0);
 }
