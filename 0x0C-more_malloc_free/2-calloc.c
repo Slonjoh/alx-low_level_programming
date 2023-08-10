@@ -4,7 +4,7 @@
 #include <string.h>
 
 /**
- * _calloc - Allocates memory for an array of nmemb elements of size bytes each.
+ * _calloc - memory for an array of nmemb elements of size bytes each.
  * @nmemb: The number of elements.
  * @size: The size of each element.
  *
