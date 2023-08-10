@@ -4,7 +4,7 @@
 #include <string.h>
 
 /**
- * string_nconcat - Concatenates two strings up to n bytes of the second string.
+ * string_nconcat - Concatenates two strings up to n bytes of the 2nd string.
  * @s1: The first string.
  * @s2: The second string.
  * @n: The number of bytes to concatenate from s2.
@@ -14,8 +14,8 @@
 
 char *string_nconcat(char *s1, char *s2, unsigned int n)
 {
-	int len1 = strlen(s1);
-	int len2 = strlen(s2);
+	unsigned int len1 = strlen(s1);
+	unsigned int len2 = strlen(s2);
 	char *result;
 
 	if (s1 == NULL)
