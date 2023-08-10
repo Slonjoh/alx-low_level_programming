@@ -1,4 +1,5 @@
 #include <stdlib.h>
+#include <unistd.h>
 
 /**
  * _strlen - Calculates the length of a string.
@@ -77,14 +78,13 @@ int main(int argc, char *argv[])
 	for (i = 0; i < _strlen(num1); i++)
 		if (num1[i] < '0' || num1[i] > '9')
 			exit(98);
-	int i;
 
 	for (i = 0; i < _strlen(num2); i++)
 		if (num2[i] < '0' || num2[i] > '9')
 			exit(98);
 	result = multiply(num1, num2);
 
-	int i = 0;
+	i = 0;
 
 	while (result[i] == '0' && result[i + 1] != '\0')
 		i++;
