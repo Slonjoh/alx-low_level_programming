@@ -1,100 +1,126 @@
 #include "main.h"
 #include <stdlib.h>
-#include <unistd.h>
+#include <stdio.h>
+#include <ctype.h>
 
 /**
- * _strlen - Calculates the length of a string.
- * @str: The input string.
+ * _is_zero - determines if any number is zero
+ * @argv: argument vector.
  *
- * Return: The length of the string.
+ * Return: no return.
  */
-
-int _strlen(char *str)
+void _is_zero(char *argv[])
 {
-	int len = 0;
+	int i, isn1 = 1, isn2 = 1;
 
-	while (str[len] != '\0')
-		len++;
-	return (len);
-}
-
-/**
- * multiply - Multiplies two strings containing numeric values.
- * @num1: The first number as a string.
- * @num2: The second number as a string.
- *
- * Return: A string representing the product of num1 and num2.
- */
-
-char *multiply(char *num1, char *num2)
-{
-	int len1 = _strlen(num1);
-	int len2 = _strlen(num2);
-	int lenRes = len1 + len2;
-	char *result;
-
-	result = malloc(sizeof(char) * (lenRes + 1));
-	if (!result)
-		exit(98);
-	int i;
-
-	for (i = 0; i < lenRes; i++)
-		result[i] = '0';
-	result[lenRes] = '\0';
-	for (i = len1 - 1; i >= 0; i--)
-	{
-		int j;
-
-		for (j = len2 - 1; j >= 0; j--)
+	for (i = 0; argv[1][i]; i++)
+		if (argv[1][i] != '0')
 		{
-			int mul;
-			int sum;
-
-			mul = (num1[i] - '0') * (num2[j] - '0');
-			sum = mul + (result[i + j + 1] - '0');
-			result[i + j + 1] = (sum % 10) + '0';
-			result[i + j] += sum / 10;
+			isn1 = 0;
+			break;
 		}
+
+	for (i = 0; argv[2][i]; i++)
+		if (argv[2][i] != '0')
+		{
+			isn2 = 0;
+			break;
+		}
+
+	if (isn1 == 1 || isn2 == 1)
+	{
+		printf("0\n");
+		exit(0);
 	}
-	return (result);
 }
 
 /**
- * main - Entry point of the program.
- * @argc: The number of command-line arguments.
- * @argv: An array of strings containing the command-line arguments.
+ * _initialize_array - set memery to zero in a new array
+ * @ar: char array.
+ * @lar: length of the char array.
  *
- * Return: 0 on success, 98 on errors.
+ * Return: pointer of a char array.
+ */
+char *_initialize_array(char *ar, int lar)
+{
+	int i = 0;
+
+	for (i = 0; i < lar; i++)
+		ar[i] = '0';
+	ar[lar] = '\0';
+	return (ar);
+}
+
+/**
+ * _checknum - determines length of the number
+ * and checks if number is in base 10.
+ * @argv: arguments vector.
+ * @n: row of the array.
+ *
+ * Return: length of the number.
+ */
+int _checknum(char *argv[], int n)
+{
+	int ln;
+
+	for (ln = 0; argv[n][ln]; ln++)
+		if (!isdigit(argv[n][ln]))
+		{
+			printf("Error\n");
+			exit(98);
+		}
+
+	return (ln);
+}
+
+/**
+ * main - Entry point.
+ * program that multiplies two positive numbers.
+ * @argc: number of arguments.
+ * @argv: arguments vector.
+ *
+ * Return: 0 - success.
  */
 int main(int argc, char *argv[])
 {
-	char *num1 = argv[1];
-	char *num2 = argv[2];
-	char *result;
+	int ln1, ln2, lnout, add, addl, i, j, k, ca;
+	char *nout;
 
 	if (argc != 3)
-		exit(98);
-	int i;
-
-	for (i = 0; i < _strlen(num1); i++)
-		if (num1[i] < '0' || num1[i] > '9')
-			exit(98);
-
-	for (i = 0; i < _strlen(num2); i++)
-		if (num2[i] < '0' || num2[i] > '9')
-			exit(98);
-	result = multiply(num1, num2);
-
-	i = 0;
-
-	while (result[i] == '0' && result[i + 1] != '\0')
-		i++;
-	while (result[i] != '\0')
+		printf("Error\n"), exit(98);
+	ln1 = _checknum(argv, 1), ln2 = _checknum(argv, 2);
+	_is_zero(argv), lnout = ln1 + ln2, nout = malloc(lnout + 1);
+	if (nout == NULL)
+		printf("Error\n"), exit(98);
+	nout = _initialize_array(nout, lnout);
+	k = lnout - 1, i = ln1 - 1, j = ln2 - 1, ca = addl = 0;
+	for (; k >= 0; k--, i--)
 	{
-		write(1, &result[i], 1);
-		i++;
+		if (i < 0)
+		{
+			if (addl > 0)
+			{
+				add = (nout[k] - '0') + addl;
+				if (add > 9)
+					nout[k - 1] = (add / 10) + '0';
+				nout[k] = (add % 10) + '0';
+			}
+			i = ln1 - 1, j--, addl = 0, ca++, k = lnout - (1 + ca);
+		}
+		if (j < 0)
+		{
+			if (nout[0] != '0')
+				break;
+			lnout--;
+			free(nout), nout = malloc(lnout + 1), nout = _initialize_array(nout, lnout);
+			k = lnout - 1, i = ln1 - 1, j = ln2 - 1, ca = addl = 0;
+		}
+		if (j >= 0)
+		{
+			add = ((argv[1][i] - '0') * (argv[2][j] - '0')) + (nout[k] - '0') + addl;
+			addl = add / 10, nout[k] = (add % 10) + '0';
+		}
 	}
-	write(1, "\n", 1);
-	free(result);
+	printf("%s\n", nout);
 	return (0);
 }
