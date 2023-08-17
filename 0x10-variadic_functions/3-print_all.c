@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdarg.h>
-#include "variadic_functions.h"  // Assuming your header file is named variadic_functions.h
+#include "variadic_functions.h"
 
 /**
  * print_all - Prints arguments based on the format provided.
@@ -40,7 +40,7 @@ void print_all(const char * const format, ...)
 			i++;
 			continue;
 		}
-		
+
 		if (format[i + 1] != '\0')
 			printf(", ");
 		i++;
