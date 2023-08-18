@@ -66,17 +66,10 @@ void print_all(const char * const format, ...)
 
 	while (format && format[i])
 	{
-		if (format[i] == 'c')
-			print_char(args);
-		if (format[i] == 'i')
-			print_int(args);
-		if (format[i] == 'f')
-			print_float(args);
-		if (format[i] == 's')
-			print_string(args);
-
-		if (format[i] == 'c' || format[i] == 'i' ||
-		    format[i] == 'f' || format[i] == 's')
+		if ((format[i] == 'c' && (print_char(args), 1)) ||
+				(format[i] == 'i' && (print_int(args), 1)) ||
+				(format[i] == 'f' && (print_float(args), 1)) ||
+				(format[i] == 's' && (print_string(args), 1)))
 		{
 			printf("%s", separator);
 			separator = ", ";
