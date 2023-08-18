@@ -68,8 +68,13 @@ void print_all(const char * const format, ...)
 				(format[i] == 'f' && (print_float(args), 1)) ||
 				(format[i] == 's' && (print_string(args), 1)))
 		{
-			printf("%s", separator);
-			separator = ", ";
+			if ((format[i] == 'c' || format[i] == 'i' ||
+						format[i] == 'f' || format[i] == 's') &&
+					format[i + 1] != '\0')
+			{
+				printf("%s", separator);
+				separator = ", ";
+			}
 		}
 
 		i++;
