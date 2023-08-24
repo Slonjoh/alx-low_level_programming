@@ -28,10 +28,3 @@ main:
     pop rax
 
     ret
-
-section .bss
-    resb 1 ; Reserve space for the null-terminator
-
-section .extern
-    extern printf
-
