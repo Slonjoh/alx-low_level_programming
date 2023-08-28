@@ -8,30 +8,23 @@
 
 size_t print_listint_safe(const listint_t *head)
 {
-	const listint_t *slow = head, *fast = head;
-	size_t count = 0;
+	int pdiff, count, a;
 
-	while (slow != NULL && fast != NULL && fast->next != NULL)
+	if (head == NULL)
+		return (0);
+	for (count = 0; head; count++)
 	{
-		printf("[%p] %d\n", (void *)slow, slow->n);
-		count++;
-		slow = slow->next;
-		fast = fast->next->next;
-
-		if (slow == fast)
+		pdiff = head - head->next;
+		printf("[%p] %d\n", (void *)head, head->n);
+		if (pdiff > 0)
+			head = head->next;
+		else
 		{
-			printf("-> [%p] %d\n", (void *)slow, slow->n);
-			fprintf(stderr, "Linked list has a loop\n");
-			exit(98);
+			a = (head->next)->n;
+			printf("-> [%p] %d\n", (void *)head->next, a);
+			count++;
+			break;
 		}
 	}
-
-	while (slow != NULL)
-	{
-		printf("[%p] %d\n", (void *)slow, slow->n);
-		count++;
-		slow = slow->next;
-	}
-
 	return (count);
 }
