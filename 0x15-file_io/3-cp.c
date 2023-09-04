@@ -1,4 +1,4 @@
-#include "holberton.h"
+#include "main.h"
 
 void print_error_1(char *msg, char *opt, int status, int fd1);
 void print_error(char *msg, char *opt, int status);
