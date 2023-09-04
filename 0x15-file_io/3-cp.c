@@ -1,63 +1,78 @@
-#include "main.h"
-#include <stdarg.h>
+#include "holberton.h"
+
+void print_error_1(char *msg, char *opt, int status, int fd1);
+void print_error(char *msg, char *opt, int status);
 
 /**
- * print_error - Prints an error message to stderr.
- * @code: The error code.
- * @format: The format string for the error message.
- */
-
-void print_error(int code, const char *format, ...)
-{
-	va_list args;
-
-	va_start(args, format);
-	dprintf(2, "Error: ");
-	dprintf(2, format, args);
-	va_end(args);
-	exit(code);
-}
-
-/**
- * main - Entry point of the program.
- * @argc: The number of arguments.
- * @argv: The array of argument strings.
+ * main - Copies the content of a file-from to file_to file
+ * @argc: Numbers of arguments
+ * @argv: Arguments
  *
- * Return: 0 on success, otherwise the appropriate error code.
- */
-
-int main(int argc, char *argv[])
+ * Return: Return 0
+ **/
+int main(int argc, char **argv)
 {
-	int fd_from, fd_to;
-	ssize_t bytes_read, bytes_written;
-	char buffer[1024];
+	int fd_from, fd_to, b_readed, b_writed;
+	char buff[1024];
 
 	if (argc != 3)
-		print_error(97, "Usage: cp file_from file_to\n");
-	fd_from = open(argv[1], O_RDONLY);
+		print_error("Usage: cp file_from file_to", "", 97);
 
+	fd_from = open(argv[1], O_RDONLY);
 	if (fd_from == -1)
-		print_error(98, "Can't read from file %s\n", argv[1]);
+		print_error("Error: Can't read from file ", argv[1], 98);
 
 	fd_to = open(argv[2], O_WRONLY | O_CREAT | O_TRUNC, 0664);
 	if (fd_to == -1)
-		print_error(99, "Can't write to file %s\n", argv[2]);
+		print_error_1("Error: Can't write to ", argv[2], 99, fd_from);
 
-	while ((bytes_read = read(fd_from, buffer, sizeof(buffer))) > 0)
+	b_readed = read(fd_from, buff, 1024);
+	while (b_readed > 0)
 	{
-		bytes_written = write(fd_to, buffer, bytes_read);
-		if (bytes_written == -1 || bytes_written != bytes_read)
-			print_error(99, "Can't write to file %s\n", argv[2]);
+		b_writed = write(fd_to, buff, b_readed);
+		if (b_readed != b_writed)
+			print_error_1("Error: Can't write to ", argv[2], 99, fd_from);
+
+		b_readed = read(fd_from, buff, 1024);
 	}
 
-	if (bytes_read == -1)
-		print_error(98, "Can't read from file %s\n", argv[1]);
+	if (b_readed == -1)
+		print_error("Error: Can't read from file ", argv[1], 98);
 
-	if (close(fd_from) == -1)
-		print_error(100, "Can't close fd %d\n", fd_from);
+	b_readed = close(fd_from);
+	if (b_readed < 0)
+		dprintf(STDERR_FILENO, "Error: Can't close fd %d\n", fd_from), exit(100);
 
-	if (close(fd_to) == -1)
-		print_error(100, "Can't close fd %d\n", fd_to);
+	b_writed = close(fd_to);
+	if (b_writed < 0)
+		dprintf(STDERR_FILENO, "Error: Can't close fd %d\n", fd_to), exit(100);
 
 	return (0);
+}
+
+/**
+ * print_error_1 - Print the error and close the file descriptor
+ * @msg: Error message to show
+ * @opt: Optional arguments
+ * @status: Exit status code
+ * @fd1: File descriptor
+ **/
+void print_error_1(char *msg, char *opt, int status, int fd1)
+{
+	if (fd1 > 0)
+		close(fd1);
+
+	print_error(msg, opt, status);
+}
+
+/**
+ * print_error - Print the error and close the file descriptor
+ * @msg: Error message to show
+ * @opt: Optional arguments
+ * @status: Exit status code
+ **/
+void print_error(char *msg, char *opt, int status)
+{
+	dprintf(STDERR_FILENO, "%s%s\n", msg, opt);
+	exit(status);
 }
