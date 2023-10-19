@@ -8,7 +8,7 @@
  *
  * Return: An integer representing the generated random number.
  */
-int generate_random_number()
+int generate_random_number(void)
 {
-	return rand();
+	return (rand());
 }
